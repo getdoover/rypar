@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-import os, sys, time, json, traceback, 
-from datetime import datetime, timedelta, timezone
+import os, sys, time, json, traceback, datetime
 
 
 ## This is the definition for a tiny lambda function
@@ -395,10 +394,8 @@ class target:
         sensor_name = payload['s1Sensor']
         reading_units = payload['s1Units']
         last_reading = payload['unix_s']
-        aest_offset = timedelta(hours=10)
-        # Convert UTC datetime to AEST datetime        
-        aest_datetime = datetime.datetime.fromtimestamp(last_reading, datetime.timezone(aest_offset))
-        aest_string = aest_datetime.strftime('%Y-%m-%d %H:%M:%S %Z')
+
+        last_reading = datetime.datetime.fromtimestamp(last_reading, datetime.timezone(datetime.timedelta(hours=10)))
 
         device_lat = payload['la']
         device_long = payload['lo']
@@ -448,7 +445,7 @@ class target:
                             "currentValue" : reading,
                         },
                         "sensorLastRead": {
-                            "currentValue" : aest_string,
+                            "currentValue" : last_reading,
                         },
                         "battVoltage": {
                             "currentValue" : battery_voltage,
