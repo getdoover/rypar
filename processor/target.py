@@ -23,6 +23,9 @@ except: pass
 # sys.path.append(os.path.dirname(__file__))
 import pydoover as pd
 
+device_msg_id_key = "s" # the key for the value in the payload that identifies the device
+device_config_id_key = "rypar_serial" # the key in the deployment config that contains the identifier of the device
+publish_channel = "rypar_oem_uplink_recv" # the channel messages are published to
 
 class target:
 
@@ -71,35 +74,35 @@ class target:
         if not 'payload' in msg_obj:
             self.add_to_log( "No payload passed - skipping processing" )
             return
-        if not 'SerNo' in msg_obj['payload']:
+        if not device_msg_id_key in msg_obj['payload']:
             self.add_to_log( "No serial number passed - skipping processing" )
             return
         
-        serial_num = msg_obj['payload']['SerNo']
+        serial_num = msg_obj['payload'][f'{device_msg_id_key}']
 
         agents = self.cli.get_agents()
         self.add_to_log(str(len(agents)) + " accessible agents to process")
 
         for ak, a in agents.items():
             deployment_config = a.get_deployment_config()
-            if deployment_config is not None and 'DM_SERIAL' in deployment_config:
-                if serial_num == deployment_config['DM_SERIAL']:
+            if deployment_config is not None and device_config_id_key in deployment_config:
+                if serial_num == deployment_config[f'{device_config_id_key}']:
                     agent_key = a.get_agent_id()
                     self.add_to_log('Found agent ' + str(agent_key) + " with matching serial number " + str(serial_num))
 
                     destination_channel = self.cli.get_channel(
-                        channel_name="dm_oem_uplink_recv",
-                        agent_id=agent_key
+                        channel_name = publish_channel,
+                        agent_id = agent_key
                     )
 
                     destination_channel.publish(
-                        msg_str=json.dumps(msg_obj['payload'])
+                        msg_str = json.dumps(msg_obj['payload'])
                     )
 
-                    self.add_to_log("Published to dm_oem_uplink_recv channel")
+                    self.add_to_log(f"Published to {publish_channel} channel")
                     return
 
-        self.add_to_log("Did not find an agent with matching DM_SERIAL deployment config")
+        self.add_to_log(f"Did not find an agent with matching {device_config_id_key} deployment config")
 
 
     def create_doover_client(self):
