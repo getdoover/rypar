@@ -395,12 +395,9 @@ class target:
         sensor_name = payload['s1Sensor']
         reading_units = payload['s1Units']
         last_reading = payload['unix_s']
-
-        utc_datetime = datetime.utcfromtimestamp(last_reading).replace(tzinfo=timezone.utc)
         aest_offset = timedelta(hours=10)
-        # Convert UTC datetime to AEST datetime
-        aest_datetime = utc_datetime.astimezone(timezone(aest_offset))
-        # Format the AEST datetime as a string
+        # Convert UTC datetime to AEST datetime        
+        aest_datetime = datetime.datetime.fromtimestamp(last_reading, datetime.timezone(aest_offset))
         aest_string = aest_datetime.strftime('%Y-%m-%d %H:%M:%S %Z')
 
         device_lat = payload['la']
