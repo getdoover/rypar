@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os, sys, time, json, traceback
+import os, sys, time, json, traceback, datetime
 
 
 ## This is the definition for a tiny lambda function
@@ -394,6 +394,8 @@ class target:
         sensor_name = payload['s1Sensor']
         reading_units = payload['s1Units']
         last_reading = payload['unix_s']
+        last_reading = datetime.datetime.fromtimestamp(last_reading).strftime('%Y-%m-%d %H:%M:%S')
+
         device_lat = payload['la']
         device_long = payload['lo']
 
