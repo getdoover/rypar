@@ -448,43 +448,47 @@ class target:
                             "currentValue" : battery_voltage,
                         },
                         "settings_submodule": {
-                            "gpsAccuracy" : {
-                                "currentValue" : gps_acc,
-                            },
-                            "debug_submodule" : {
-                                "deviceImei" : {
-                                    "currentValue" : device_id,
+                            "children": {
+                                "gpsAccuracy" : {
+                                    "currentValue" : gps_acc,
                                 },
-                                "sensorName" : {
-                                    "currentValue" : sensor_name,
-                                },
-                                "sensorUnits" : {
-                                    "currentValue" : reading_units,
-                                },
-                                "systemFreeHeap" : {
-                                    "currentValue" : free_heap,
-                                },
-                                "systemThrottled" : {
-                                    "currentValue" : throttle,
-                                },
-                                "sdCardSize" : {
-                                    "currentValue" : sd_size,
-                                },
-                                "sdUtilization" : {
-                                    "currentValue" : sd_util,
-                                },
-                                "gpsFixTime" : {
-                                    "currentValue" : gps_fix_time,
-                                },
-                                "systemResetUuid" : {
-                                    "currentValue" : reset_uuid,
-                                },
-                                "dataSignalStrength" : {
-                                    "currentValue" : signal_strength,
-                                },
-                                "deviceTemp" : {
-                                    "currentValue" : device_temp,
-                                },
+                                "debug_submodule" : {
+                                    "children":{
+                                        "deviceImei" : {
+                                            "currentValue" : device_id,
+                                        },
+                                        "sensorName" : {
+                                            "currentValue" : sensor_name,
+                                        },
+                                        "sensorUnits" : {
+                                            "currentValue" : reading_units,
+                                        },
+                                        "systemFreeHeap" : {
+                                            "currentValue" : free_heap,
+                                        },
+                                        "systemThrottled" : {
+                                            "currentValue" : throttle,
+                                        },
+                                        "sdCardSize" : {
+                                            "currentValue" : sd_size,
+                                        },
+                                        "sdUtilization" : {
+                                            "currentValue" : sd_util,
+                                        },
+                                        "gpsFixTime" : {
+                                            "currentValue" : gps_fix_time,
+                                        },
+                                        "systemResetUuid" : {
+                                            "currentValue" : reset_uuid,
+                                        },
+                                        "dataSignalStrength" : {
+                                            "currentValue" : signal_strength,
+                                        },
+                                        "deviceTemp" : {
+                                            "currentValue" : device_temp,
+                                        },
+                                    }
+                                }
                             }
                         }
                     }
