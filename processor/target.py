@@ -13,6 +13,8 @@ import os, sys, time, json, traceback
 ## Just add the current directory to the path first
 
 ## attempt to delete any loaded pydoover modules that persist across lambdas
+oem_uplink_channel = "rypar_oem_uplink_recv"
+
 if 'pydoover' in sys.modules:
     del sys.modules['pydoover']
 try: del pydoover
@@ -56,7 +58,7 @@ class target:
 
             ## Get the oem_uplink channel
             oem_uplink_channel = self.cli.get_channel(
-                channel_name="dm_oem_uplink_recv",
+                channel_name= oem_uplink_channel,
                 agent_id=self.kwargs['agent_id']
             )
 
