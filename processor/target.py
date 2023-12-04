@@ -394,7 +394,7 @@ class target:
         sensor_name = payload['s1Sensor']
         reading_units = payload['s1Units']
         last_reading = payload['unix_s']
-        last_reading = datetime.datetime.fromtimestamp(last_reading).strftime('%Y-%m-%d %H:%M:%S')
+        last_reading = datetime.datetime.fromtimestamp(last_reading, datetime.timezone(datetime.timedelta(hours=10)).strftime('%Y-%m-%d %H:%M:%S'))
 
         device_lat = payload['la']
         device_long = payload['lo']
