@@ -22,7 +22,7 @@
                 },
                 "subscriptions" : [
                     {
-                        "channel_name" : "dm_oem_uplink_recv",
+                        "channel_name" : "rypar_oem_uplink_recv",
                         "is_active" : true
                     }
                 ]
