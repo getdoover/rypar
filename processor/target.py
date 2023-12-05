@@ -311,21 +311,21 @@ class target:
                                             {
                                                 "label" : "Low",
                                                 "min" : 0,
-                                                "max" : 20,
+                                                "max" : 40,
                                                 "colour" : "blue",
                                                 "showOnGraph" : True
                                             },
                                             {
                                                 # "label" : "Ok",
-                                                "min" : 20,
-                                                "max" : 35,
-                                                "colour" : "green",
+                                                "min" : 40,
+                                                "max" : 70,
+                                                "colour" : "yellow",
                                                 "showOnGraph" : True
                                             },
                                             {
                                                 "label" : "Warm",
-                                                "min" : 35,
-                                                "max" : 50,
+                                                "min" : 70,
+                                                "max" : 150,
                                                 "colour" : "yellow",
                                                 "showOnGraph" : True
                                             }
@@ -435,8 +435,8 @@ class target:
         ui_state_channel.publish(
             msg_str=json.dumps({
                 "state" : {
-                    # "displayString" : display_string,
-                    # "statusIcon" : status_icon,
+                    "displayString" : "testing",
+                    "statusIcon" : "idle",
                     "children" : {
                         "location" : {
                             "currentValue" : position,
