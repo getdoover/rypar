@@ -343,18 +343,18 @@ class target:
                                     #     "name" : "deviceTimeUtc",
                                     #     "displayString" : "Device Time (UTC)",
                                     # },
-                                    # "node_connection_info": {
-                                    #     "type": "uiConnectionInfo",
-                                    #     "name": "node_connection_info",
-                                    #     "connectionType": "periodic",
-                                    #     # "connectionPeriod": 1800,
-                                    #     # "nextConnection": 1800
-                                    #     "connectionPeriod": 600,
-                                    #     "nextConnection": 600,
-                                    # }
                                 }
                             }
                         }
+                    },
+                    "node_connection_info": {
+                        "type": "uiConnectionInfo",
+                        "name": "node_connection_info",
+                        "connectionType": "periodic",
+                        # "connectionPeriod": 1800,
+                        # "nextConnection": 1800
+                        "connectionPeriod": 5,
+                        "nextConnection": 900,
                     }
                 }
             }
@@ -435,8 +435,8 @@ class target:
         ui_state_channel.publish(
             msg_str=json.dumps({
                 "state" : {
-                    "displayString" : "testing",
-                    "statusIcon" : "idle",
+                    # "displayString" : "testing",
+                    # "statusIcon" : "idle",
                     "children" : {
                         "location" : {
                             "currentValue" : position,
