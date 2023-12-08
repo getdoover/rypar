@@ -659,6 +659,7 @@ class target:
         position = {
             'lat': device_lat,
             'long': device_long,
+            'alt':210
         }
 
         # position = {
