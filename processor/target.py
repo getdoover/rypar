@@ -659,7 +659,7 @@ class target:
         position = {
             'lat': float(device_lat),
             'long': float(device_long),
-            'alt':210
+            # 'alt':210
         }
 
         # position = {
@@ -675,6 +675,12 @@ class target:
         if not bool(payload):
             self.add_to_log( "No payload in message - skipping processing" )
             return
+        
+        if position is not None:
+                location_channel.publish(
+                    msg_str=json.dumps(position),
+                    save_log=True
+                )
 
         ui_state_channel.publish(
             msg_str=json.dumps({
