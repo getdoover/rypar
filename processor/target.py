@@ -236,8 +236,36 @@ class target:
                             "sensor_settings_submodule": {
                                 "type": "uiSubmodule",
                                 "name": "sensor_settings_submodule",
-                                "displayString": "Temperature Dial Settings",
+                                "displayString": "Level Gauge Settings",
                                 "children": {
+                                    "rawHeightReading" : {
+                                        "type" : "uiVariable",
+                                        "varType" : "float",
+                                        "name" : "rawHeightReading",
+                                        "displayString" : "Height Reading (cm)",
+                                        "decPrecision": 2,
+                                    },
+                                    "tankHeight": {
+                                        "type": "uiFloatParam",
+                                        "name": "inputMax",
+                                        "displayString": "Tank Height (cm)",
+                                        "min": 0,
+                                        "max": 999
+                                    },
+                                    "inputLowLevel": {
+                                        "type": "uiFloatParam",
+                                        "name": "inputLowLevel",
+                                        "displayString": "Low level alarm (%)",
+                                        "min": 0,
+                                        "max": 99
+                                    },
+                                    "inputZeroCal": {
+                                        "type": "uiFloatParam",
+                                        "name": "inputZeroCal",
+                                        "displayString": "Zero Calibration (cm)",
+                                        "min": -999,
+                                        "max": 999
+                                    },
                                     "sensor_ranges": {
                                         "type": "uiSubmodule",
                                         "name": "sensor_ranges",
@@ -246,22 +274,22 @@ class target:
                                             "maxLevel": {
                                                 "type": "uiFloatParam",
                                                 "name": "maxLevel",
-                                                "displayString": "Max Level (C)",
+                                                "displayString": "Max Level (%)",
                                             },
                                             "maxMidLevel": {
                                                 "type": "uiFloatParam",
                                                 "name": "maxMidLevel",
-                                                "displayString": "Max-Mid Level (C)",
+                                                "displayString": "Max-Mid Level (%)",
                                             },
                                             "midMinLevel": {
                                                 "type": "uiFloatParam",
                                                 "name": "midMinLevel",
-                                                "displayString": "Mid-Min Level (C)",
+                                                "displayString": "Mid-Min Level (%)",
                                             },
                                             "minLevel": {
                                                 "type": "uiFloatParam",
                                                 "name": "minLevel",
-                                                "displayString": "Min Level (C)",
+                                                "displayString": "Min Level (%)",
                                             },
                                         },
                                     },
@@ -496,89 +524,102 @@ class target:
 
     def downlink(self, oem_uplink_channel, ui_state_channel, ui_cmds_channel, location_channel):
         ## Run any downlink processing code here
-        cmds_obj = ui_cmds_channel.get_aggregate()
+        return None
+        # cmds_obj = ui_cmds_channel.get_aggregate()
 
-        minColor = "red"
-        try: 
-            minColor = cmds_obj['cmds']['minColourState']
-        except Exception as e:
-            self.add_to_log("Error getting minColor - " + str(e))
+        # minColor = "red"
+        # try: 
+        #     minColor = cmds_obj['cmds']['minColourState']
+        # except Exception as e:
+        #     self.add_to_log("Error getting minColor - " + str(e))
         
-        midColor = "yellow"
-        try:
-            midColor = cmds_obj['cmds']['midColourState']
-        except Exception as e:
-            self.add_to_log("Error getting midColor - " + str(e))
+        # midColor = "yellow"
+        # try:
+        #     midColor = cmds_obj['cmds']['midColourState']
+        # except Exception as e:
+        #     self.add_to_log("Error getting midColor - " + str(e))
 
-        maxColor = "green"
-        try:
-            maxColor = cmds_obj['cmds']['maxColourState']
-        except Exception as e:
-            self.add_to_log("Error getting maxColor - " + str(e))
+        # maxColor = "green"
+        # try:
+        #     maxColor = cmds_obj['cmds']['maxColourState']
+        # except Exception as e:
+        #     self.add_to_log("Error getting maxColor - " + str(e))
 
-        maxLevel = 100
-        try: 
-            maxLevel = cmds_obj['cmds']['maxLevel']
-        except Exception as e:
-            self.add_to_log("Error getting maxLevel - " + str(e))
+        # maxLevel = 100
+        # try: 
+        #     maxLevel = cmds_obj['cmds']['maxLevel']
+        # except Exception as e:
+        #     self.add_to_log("Error getting maxLevel - " + str(e))
         
-        maxMidLevel = 70
-        try: 
-            maxMidLevel = cmds_obj['cmds']['maxMidLevel']
-        except Exception as e:
-            self.add_to_log("Error getting maxMidLevel - " + str(e))
+        # maxMidLevel = 70
+        # try: 
+        #     maxMidLevel = cmds_obj['cmds']['maxMidLevel']
+        # except Exception as e:
+        #     self.add_to_log("Error getting maxMidLevel - " + str(e))
 
-        midMinLevel = 30
-        try:
-            midMinLevel = cmds_obj['cmds']['midMinLevel']
-        except Exception as e:
-            self.add_to_log("Error getting midMinLevel - " + str(e))
+        # midMinLevel = 30
+        # try:
+        #     midMinLevel = cmds_obj['cmds']['midMinLevel']
+        # except Exception as e:
+        #     self.add_to_log("Error getting midMinLevel - " + str(e))
 
-        minLevel = 0
-        try:
-            minLevel = cmds_obj['cmds']['minLevel']
-        except Exception as e:
-            self.add_to_log("Error getting minLevel - " + str(e))
+        # minLevel = 0
+        # try:
+        #     minLevel = cmds_obj['cmds']['minLevel']
+        # except Exception as e:
+        #     self.add_to_log("Error getting minLevel - " + str(e))
 
-        ui_state_channel.publish(
-                    msg_str=json.dumps({
-                        "state" : {
-                            "children" : {
-                                "sensorReading" : {
-                                    "ranges": [
-                                        {
-                                            "label" : "Low",
-                                            "min" : minLevel,
-                                            "max" : midMinLevel,
-                                            "colour" : minColor,
-                                            "showOnGraph" : True
-                                        },
-                                        {
-                                            # "label" : "Ok",
-                                            "min" : midMinLevel,
-                                            "max" : maxMidLevel,
-                                            "colour" : midColor,
-                                            "showOnGraph" : True
-                                        },
-                                        {
-                                            "label" : "Fast",
-                                            "min" : maxMidLevel,
-                                            "max" : maxLevel,
-                                            "colour" : maxColor,
-                                            "showOnGraph" : True
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }),
-                    save_log=True
-                )
+        # ui_state_channel.publish(
+        #             msg_str=json.dumps({
+        #                 "state" : {
+        #                     "children" : {
+        #                         "sensorReading" : {
+        #                             "ranges": [
+        #                                 {
+        #                                     "label" : "Low",
+        #                                     "min" : minLevel,
+        #                                     "max" : midMinLevel,
+        #                                     "colour" : minColor,
+        #                                     "showOnGraph" : True
+        #                                 },
+        #                                 {
+        #                                     # "label" : "Ok",
+        #                                     "min" : midMinLevel,
+        #                                     "max" : maxMidLevel,
+        #                                     "colour" : midColor,
+        #                                     "showOnGraph" : True
+        #                                 },
+        #                                 {
+        #                                     "label" : "Fast",
+        #                                     "min" : maxMidLevel,
+        #                                     "max" : maxLevel,
+        #                                     "colour" : maxColor,
+        #                                     "showOnGraph" : True
+        #                                 }
+        #                             ]
+        #                         }
+        #                     }
+        #                 }
+        #             }),
+        #             save_log=True
+        #         )
 
 
     def uplink(self, oem_uplink_channel, ui_state_channel, ui_cmds_channel, location_channel):
         ## Run any uplink processing code here
         cmds_obj = ui_cmds_channel.get_aggregate()
+
+        tankHeight = 230
+        try:
+            tankHeight = cmds_obj['cmds']['tankHeight']
+        except Exception as e:
+            self.add_to_log("Error getting tankHeight - " + str(e))
+
+        inputZeroCal = 0
+        try:
+            inputZeroCal = cmds_obj['cmds']['inputZeroCal']
+        except Exception as e:
+            self.add_to_log("Error getting inputZeroCal - " + str(e))
 
         minColor = "red"
         try: 
@@ -655,6 +696,8 @@ class target:
         free_heap = payload['sh']
         reset_uuid = payload['sr']
 
+        perc_reading  = (reading-inputZeroCal / tankHeight) * 100
+
 
         position = {
             'lat': float(device_lat),
@@ -692,8 +735,9 @@ class target:
                             "currentValue" : position,
                         },
                         "sensorReading" : {
-                            "displayString" : f"{sensor_name} ({reading_units})",
-                            "currentValue" : reading,
+                            # "displayString" : f"{sensor_name} ({reading_units})",
+                            "displayString" : "Tank Level (%)",
+                            "currentValue" : perc_reading,
                             "ranges": [
                                 {
                                     "label" : "Low",
@@ -728,6 +772,12 @@ class target:
                             "children": {
                                 "gpsAccuracy" : {
                                     "currentValue" : gps_acc,
+                                },
+                                "sensor_settings_submodule":{
+                                    "children":{
+                                        "rawHeightReading" : {
+                                            "currentValue" : reading,
+                                    },
                                 },
                                 "debug_submodule" : {
                                     "children":{
