@@ -696,7 +696,7 @@ class target:
         free_heap = payload['sh']
         reset_uuid = payload['sr']
 
-        perc_reading  = (reading-inputZeroCal / tankHeight) * 100
+        perc_reading  = ((reading-inputZeroCal) / tankHeight) * 100
 
 
         position = {
