@@ -129,21 +129,21 @@ class target:
                                 "label" : "Low",
                                 "min" : 0,
                                 "max" : 20,
-                                "colour" : "blue",
+                                "colour" : "red",
                                 "showOnGraph" : True
                             },
                             {
                                 # "label" : "Ok",
                                 "min" : 20,
                                 "max" : 80,
-                                "colour" : "green",
+                                "colour" : "yellow",
                                 "showOnGraph" : True
                             },
                             {
                                 "label" : "Fast",
                                 "min" : 80,
-                                "max" : 120,
-                                "colour" : "yellow",
+                                "max" : 100,
+                                "colour" : "green",
                                 "showOnGraph" : True
                             }
                         ]
