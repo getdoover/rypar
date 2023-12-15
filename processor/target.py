@@ -777,7 +777,8 @@ class target:
                                     "children":{
                                         "rawHeightReading" : {
                                             "currentValue" : reading,
-                                    },
+                                        }
+                                    }
                                 },
                                 "debug_submodule" : {
                                     "children":{
