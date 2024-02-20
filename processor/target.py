@@ -148,6 +148,70 @@ class target:
                             }
                         ]
                     },
+                    "sensorReading1" : {
+                        "type" : "uiVariable",
+                        "varType" : "float",
+                        "name" : "sensorReading1",
+                        "displayString" : "Temperature (C)",
+                        "decPrecision": 1,
+                        "form": "linearGauge",
+                        "currentValue": 24,
+                        "ranges": [
+                            {
+                                "label" : "Low",
+                                "min" : 0,
+                                "max" : 20,
+                                "colour" : "red",
+                                "showOnGraph" : True
+                            },
+                            {
+                                # "label" : "Ok",
+                                "min" : 20,
+                                "max" : 80,
+                                "colour" : "yellow",
+                                "showOnGraph" : True
+                            },
+                            {
+                                "label" : "Fast",
+                                "min" : 80,
+                                "max" : 100,
+                                "colour" : "green",
+                                "showOnGraph" : True
+                            }
+                        ]
+                    },
+                    "sensorReading2" : {
+                        "type" : "uiVariable",
+                        "varType" : "float",
+                        "name" : "sensorReading2",
+                        "displayString" : "Weight (kg)",
+                        "currentValue": 60,
+                        "decPrecision": 1,
+                        "form": "radialGauge",
+                        "ranges": [
+                            {
+                                "label" : "Low",
+                                "min" : 0,
+                                "max" : 20,
+                                "colour" : "red",
+                                "showOnGraph" : True
+                            },
+                            {
+                                # "label" : "Ok",
+                                "min" : 20,
+                                "max" : 80,
+                                "colour" : "yellow",
+                                "showOnGraph" : True
+                            },
+                            {
+                                "label" : "Fast",
+                                "min" : 80,
+                                "max" : 100,
+                                "colour" : "green",
+                                "showOnGraph" : True
+                            }
+                        ]
+                    },
                     "sensorLastRead": {
                         "type" : "uiVariable",
                         "varType" : "text",
